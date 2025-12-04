@@ -1,0 +1,71 @@
+services:
+  structurizr-poc:
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile.structurizr
+    image: structurizr-poc:latest
+    container_name: structurizr-poc
+
+    ports:
+      - "8080:8080"
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "-q",
+          "--spider",
+          "http://localhost:8080/q/health/ready",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+
+    environment:
+      - JAVA_OPTS=-Xms256m -Xmx384m -XX:+UseG1GC -XX:MaxGCPauseMillis=100
+      - QUARKUS_HTTP_HOST=0.0.0.0
+      - QUARKUS_HTTP_PORT=8080
+      - QUARKUS_LOG_LEVEL=INFO
+      - QUARKUS_LOG_CONSOLE_FORMAT=%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c{3.}] (%t) %s%e%n
+
+    user: "1000:1000"
+    read_only: true
+
+    tmpfs:
+      - /tmp:size=64M
+
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-ingress
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      structurizr-poc:
+        condition: service_healthy
+    networks:
+      - app-network
+    profiles:
+      - with-ingress
+
+networks:
+  app-network:
+    driver: bridge

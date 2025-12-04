@@ -1,0 +1,26 @@
+# Diretórios de build
+target/
+!target/quarkus-app/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Git
+.git/
+.gitignore
+
+# Arquivos gerados pelo Structurizr (serão gerados no build)
+src/main/resources/architecture/static/
+
+# Maven wrapper
+.mvn/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+
+!target/quarkus-app/*
