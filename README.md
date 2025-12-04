@@ -1,93 +1,93 @@
 # structurizr-poc
 
-Serviço Quarkus que utiliza **Structurizr DSL** para documentar arquitetura e servir diagramas C4 interativos.
+Quarkus service that uses **Structurizr DSL** to document architecture and serve interactive C4 diagrams.
 
-## 🏗️ Arquitetura
+## 🏗️ Architecture
 
-Este projeto gera automaticamente um site HTML estático com diagramas C4 a partir de um arquivo DSL, utilizando o Structurizr CLI durante o build.
+This project automatically generates a static HTML site with C4 diagrams from a DSL file, using the Structurizr CLI during the build.
 
 ```
-workspace.dsl → Structurizr CLI → HTML Estático → Quarkus (/) 
+workspace.dsl → Structurizr CLI → Static HTML → Quarkus (/) 
 ```
 
-## 📋 Pré-requisitos
+## 📋 Prerequisites
 
 - Java 21+
 - Maven 3.9+
-- Docker (para geração dos diagramas durante o build)
+- Docker (for generating diagrams during the build)
 
-## 🚀 Executando
+## 🚀 Running
 
-### Desenvolvimento Local
+### Local Development
 
-1. **Build com Maven** executa automaticamente o Structurizr CLI via Docker:
+1. **Maven Build** automatically runs the Structurizr CLI via Docker:
 
 ```bash
 ./mvnw clean package
 ```
 
-2. **Iniciar em modo dev**:
+2. **Start in dev mode**:
 ```bash
 ./mvnw quarkus:dev
 ```
 
-3. **Acessar os diagramas**: http://localhost:8080/
+3. **Access the diagrams**: http://localhost:8080/
 
-### Build e Rode com Docker
+### Build and Run with Docker
 
 ```bash
 docker build -t structurizr-poc . && docker run structurizr-poc
 ```
 
-### Simulação de Produção (Docker Compose)
+### Production Simulation (Docker Compose)
 
-Este projeto inclui um `docker-compose.yml` configurado para simular um ambiente Kubernetes de produção.
+This project includes a `docker-compose.yml` configured to simulate a production Kubernetes environment.
 
-| Feature K8s | Simulação Docker Compose |
+| K8s Feature | Docker Compose Simulation |
 |-------------|-------------------------|
-| **Liveness Probe** | `healthcheck` com `curl /q/health/live` |
-| **Readiness Probe** | Health check no endpoint `/q/health/ready` |
+| **Liveness Probe** | `healthcheck` with `curl /q/health/live` |
+| **Readiness Probe** | Health check on endpoint `/q/health/ready` |
 | **Resource Limits** | `deploy.resources.limits: 1 CPU, 512M` |
 | **Security Context** | `user: "1000:1000"`, `read_only: true` |
 | **Restart Policy** | `restart: unless-stopped` |
 
-**Comandos:**
+**Commands:**
 
 ```bash
-# Iniciar (em background)
+# Start (in background)
 docker-compose up --detach
 
-# Ver logs
+# View logs
 docker-compose logs --follow
 
-# Ver status e health
+# View status and health
 docker-compose ps
 
-# Parar
+# Stop
 docker-compose down
 
-# Com Ingress (nginx) - em outro terminal
+# With Ingress (nginx) - in another terminal
 docker-compose --profile with-ingress up
 ```
 
-## 📁 Estrutura
+## 📁 Structure
 
 ```
 src/main/resources/
 ├── architecture/
-│   ├── workspace.dsl      # Definição da arquitetura (Structurizr DSL)
-│   └── static/            # Site HTML gerado (ignorado no git)
-├── META-INF/resources/    # Arquivos estáticos servidos pelo Quarkus
+│   ├── workspace.dsl      # Architecture definition (Structurizr DSL)
+│   └── static/            # Generated HTML site (ignored in git)
+├── META-INF/resources/    # Static files served by Quarkus
 └── application.properties
 ```
 
-## ✏️ Editando a Arquitetura
+## ✏️ Editing the Architecture
 
-Edite o arquivo `src/main/resources/architecture/workspace.dsl` para alterar os diagramas.
+Edit the `src/main/resources/architecture/workspace.dsl` file to change the diagrams.
 
-Consulte a [documentação do Structurizr DSL](https://docs.structurizr.com/dsl) para referência da linguagem.
+Refer to the [Structurizr DSL documentation](https://docs.structurizr.com/dsl) for language reference.
 
-## 🔗 Links Úteis
+## 🔗 Useful Links
 
 - [Structurizr DSL](https://docs.structurizr.com/dsl)
 - [C4 Model](https://c4model.com/)
