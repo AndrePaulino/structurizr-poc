@@ -18,6 +18,7 @@
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.5.4</surefire-plugin.version>
         <structurizr.cli.version>2025.11.09</structurizr.cli.version>
+        <structurizr.version>3.2.0</structurizr.version>
         <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
     </properties>
@@ -37,15 +38,36 @@
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-rest</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-health</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest-client-jackson</artifactId>
+        </dependency>
+
+        <!-- Structurizr para processar DSL em runtime -->
+        <dependency>
+            <groupId>com.structurizr</groupId>
+            <artifactId>structurizr-core</artifactId>
+            <version>${structurizr.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.structurizr</groupId>
+            <artifactId>structurizr-dsl</artifactId>
+            <version>${structurizr.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.structurizr</groupId>
+            <artifactId>structurizr-autolayout</artifactId>
+            <version>${structurizr.version}</version>
         </dependency>
     </dependencies>
 
@@ -74,7 +96,7 @@
                                 <argument>structurizr/cli:${structurizr.cli.version}</argument>
                                 <argument>export</argument>
                                 <argument>-workspace</argument>
-                                <argument>/usr/local/structurizr/workspace.dsl</argument>
+                                <argument>/usr/local/structurizr/architecture-aggregator.dsl</argument>
                                 <argument>-format</argument>
                                 <argument>static</argument>
                                 <argument>-output</argument>
