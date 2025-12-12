@@ -21,6 +21,8 @@ RUN mvn package -DskipTests -Dexec.skip=true
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
+RUN apk add --no-cache graphviz
+
 COPY --from=build /app/target/quarkus-app/lib/ lib/
 COPY --from=build /app/target/quarkus-app/*.jar .
 COPY --from=build /app/target/quarkus-app/app/ app/
