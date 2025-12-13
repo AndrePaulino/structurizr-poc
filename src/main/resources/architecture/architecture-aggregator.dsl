@@ -113,9 +113,6 @@ workspace "Architecture Aggregator" "Documentação de Arquitetura do Serviço A
         styles {
             element "Element" {
                 color #ffffff
-                stroke #0773af
-                strokeWidth 7
-                shape roundedbox
             }
             element "Person" {
                 background #08427B
@@ -123,6 +120,19 @@ workspace "Architecture Aggregator" "Documentação de Arquitetura do Serviço A
             }
             element "Software System" {
                 background #1168BD
+            }
+            element "Container" {
+                background #438DD5
+            }
+            element "Component" {
+                background #85BBF0
+                color #000000
+            }
+            element "Database" {
+                shape cylinder
+            }
+            element "Queue" {
+                shape pipe
             }
             element "External" {
                 background #999999
@@ -141,12 +151,7 @@ workspace "Architecture Aggregator" "Documentação de Arquitetura do Serviço A
                 background #438DD5
                 shape webbrowser
             }
-            element "Component" {
-                background #85BBF0
-                color #000000
-            }
             relationship "Relationship" {
-                thickness 3
                 color #707070
             }
         }
