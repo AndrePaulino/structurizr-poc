@@ -48,11 +48,13 @@
                   class="btn btn-primary"
                   >View Architecture</a
                 >
-                <a
-                  href="/services/{service.serviceId}/index.html"
+                <button
+                  type="button"
                   class="btn btn-outline-secondary"
-                  >Static Version</a
+                  onclick="generateService('{service.serviceId}')"
                 >
+                  Generate Static
+                </button>
               </div>
             </div>
             {#else}
@@ -101,6 +103,19 @@
           </div>
         </div>
       </div>
+      <script>
+        function generateService(serviceId) {
+          fetch("/api/generate/" + serviceId, { method: "POST" })
+            .then((response) => {
+              if (response.ok) {
+                alert("Static files generated for " + serviceId);
+              } else {
+                alert("Error generating files for " + serviceId);
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+        }
+      </script>
     </body>
   </html>
 </org.apaulino.structurizr.service.provider.ArchitectureServiceProvider>
