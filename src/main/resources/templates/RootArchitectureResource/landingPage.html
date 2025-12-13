@@ -1,0 +1,106 @@
+{@java.util.List<org.apaulino.structurizr.service.provider.ArchitectureServiceProvider>
+  services}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Architecture Aggregator</title>
+      <link href="/aggregator/css/bootstrap-5.3.7.min.css" rel="stylesheet" />
+      <style>
+        body {
+          padding: 20px;
+          background-color: #f8f9fa;
+        }
+        .header {
+          margin-bottom: 30px;
+        }
+        .card {
+          transition: transform 0.2s;
+        }
+        .card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>Architecture Aggregator</h1>
+          <p class="lead">
+            Documentação de arquitetura agregada de múltiplos microsserviços
+            usando C4 Model
+          </p>
+          <hr />
+        </div>
+
+        <div class="row">
+          <div class="col-md-8">
+            <h3>Available Services</h3>
+            {#for service in services}
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">{service.displayName}</h5>
+                <p class="card-text">{service.description}</p>
+                <a
+                  href="/api/architecture/services/{service.serviceId}"
+                  class="btn btn-primary"
+                  >View Architecture</a
+                >
+                <a
+                  href="/services/{service.serviceId}/index.html"
+                  class="btn btn-outline-secondary"
+                  >Static Version</a
+                >
+              </div>
+            </div>
+            {#else}
+            <p class="text-muted">No services registered yet.</p>
+            {/for}
+          </div>
+          <div class="col-md-4">
+            <div class="card bg-light">
+              <div class="card-body">
+                <h5 class="card-title">About</h5>
+                <p class="card-text small">
+                  Este serviço agrega a documentação de arquitetura de múltiplos
+                  microsserviços, gerando diagramas C4 interativos.
+                </p>
+                <hr />
+                <h6>Endpoints</h6>
+                <ul class="small">
+                  <li><code>GET /</code> - Esta página</li>
+                  <li>
+                    <code>GET /api/architecture</code> - Diagrama agregador
+                  </li>
+                  <li>
+                    <code>GET /api/architecture/services</code> - Lista serviços
+                    (JSON)
+                  </li>
+                  <li>
+                    <code>POST /api/generate</code> - Gera sites estáticos
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card mt-3">
+              <div class="card-body">
+                <h5 class="card-title">Build-time Architecture</h5>
+                <p class="card-text small">
+                  Diagrama da arquitetura do próprio agregador, gerado em
+                  build-time.
+                </p>
+                <a
+                  href="/api/architecture"
+                  class="btn btn-outline-primary btn-sm"
+                  >View Aggregator Architecture</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>
+  </html>
+</org.apaulino.structurizr.service.provider.ArchitectureServiceProvider>
