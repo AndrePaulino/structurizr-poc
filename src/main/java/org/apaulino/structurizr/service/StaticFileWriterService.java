@@ -79,9 +79,10 @@ public class StaticFileWriterService {
         String template = loadIndexTemplate();
 
         String html = template
-                .replace("./js/", "../../js/")
-                .replace("./css/", "../../css/")
-                .replace("./img/", "../../img/");
+                .replace("\"./js/", "\"/aggregator/js/")
+                .replace("\"./css/", "\"/aggregator/css/")
+                .replace("\"./img/", "\"/aggregator/img/")
+                .replace("\"./workspace.js\"", "\"./workspace.js\""); // Keep local workspace.js
 
         html = html.replace("<title>", "<title>" + displayName + " - ");
 
