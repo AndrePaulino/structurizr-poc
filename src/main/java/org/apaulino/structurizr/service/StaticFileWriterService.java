@@ -19,8 +19,8 @@ public class StaticFileWriterService {
     @ConfigProperty(name = "structurizr.static.output-dir", defaultValue = "target/classes/META-INF/resources/services")
     String outputDir;
 
-    ServiceRegistry serviceRegistry;
-    StaticSiteGeneratorService staticSiteGeneratorService;
+    private final ServiceRegistry serviceRegistry;
+    private final StaticSiteGeneratorService staticSiteGeneratorService;
 
     public StaticFileWriterService(ServiceRegistry serviceRegistry,
             StaticSiteGeneratorService staticSiteGeneratorService) {
