@@ -16,7 +16,7 @@ public class OrderManagementProvider implements ArchitectureServiceProvider {
 
     @Override
     public String getServiceId() {
-        return "service-a";
+        return "order-management";
     }
 
     @Override

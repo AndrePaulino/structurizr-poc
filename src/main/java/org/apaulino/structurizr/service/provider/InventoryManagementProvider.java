@@ -16,7 +16,7 @@ public class InventoryManagementProvider implements ArchitectureServiceProvider 
 
     @Override
     public String getServiceId() {
-        return "service-b";
+        return "inventory-management";
     }
 
     @Override
